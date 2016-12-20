@@ -1,0 +1,65 @@
+You are given scrambled input sentences. Each word is scrambled independently,and result is concatenated. So,
+'Hello to the world'
+might become:
+'elhlootheddrowl'
+
+You have dictionary with all words in it, unscramble the sentence.
+
+Answer 1
+You can take advantage of the byte representations of the characters and make the key of your dictionary to be the tuple of (product,sum) of the integer representations of the bytes. It's invariant to shuffling because of the associative property of addition and multiplication but not to changing the contents (see proof below). Code in Python.
+
+
+scramble = 'ehllotehotwolrd'
+wordset = {'hello','to','the','world'}
+
+def wordsetToDict(wordset):
+    worddict = {}
+    for word in wordset:
+        key = 1
+        key2 = 0
+        for c in word:
+            key *= ord(c)
+            key2 += ord(c)
+        worddict[(key,key2)] = word
+    return worddict
+worddict = wordsetToDict(wordset)
+print(worddict)
+
+def unscramble(scramble,worddict):
+    outstr = ''
+    key = (1,0)
+    counter = 0
+    begin = 0
+    while (counter < len(scramble)):
+        c = scramble[counter]
+        # make c to be considered in key
+        key = (key[0]*ord(c),key[1]+ord(c))
+        # test for existence in wordset
+        if key in worddict:
+            # Add word to output string
+            outstr += worddict[key] + ' '
+            # update where to begin
+            begin = begin + len(worddict[key])
+            # move counter to the beginning
+            counter = begin
+            # reset key
+            key = (1,0)
+        else:
+            # increment counter
+            counter += 1
+    return outstr[0:(len(outstr)-1)]
+
+unscramble(scramble,worddict)
+Proof:
+Suppose we have two, two character strings (x1,x2,y1,y2 represent any possible character), 'x1y1', 'x2y2'
+Question: can we have a collision if x1 != x2,y2 or y1 != x2,y2? collision means product and sum are equal
+WLOG assume x1 != x2, y2.
+Then ord(x1) != ord(x2), ord(y2)
+Suppose ord(x1)*ord(y1) = ord(x2)*ord(y2) and ord(x1)+ord(y1) = ord(x2)+ord(y2)
+then ord(y1) = ord(x2)*ord(y2)/ord(x1)
+but ord(y1) is an integer. meaning ord(y2)/ord(x1) or ord(x2)/ord(x1) is an integer. Hence there is some k such that ord(x1)*k = ord(x2) or ord(x1)*k = ord(y2). k != 1.
+case 1: ord(x1)*k = ord(x2)
+So, ord(x1)*ord(y1) = ord(x1)*k*ord(y2) => ord(y1)/k = ord(y2) => ord(x1)+ord(y1) = ord(x1)*k+ord(y1)/k
+This means k must equal 1. contradiction!
+Similarly for case 2.
+So we know that the sum and product of ordinals are invariant with respect to shuffling, but not with respect to changing the contents of the string.
