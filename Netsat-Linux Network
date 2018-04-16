@@ -1,0 +1,102 @@
+1. Listing all the LISTENING Ports of TCP and UDP connections
+Listing all ports (both TCP and UDP) using netstat -a option.
+
+# netstat -a | more
+
+2. Listing TCP Ports connections
+Listing only TCP (Transmission Control Protocol) port connections using netstat -at.
+
+# netstat -at
+
+3. Listing UDP Ports connections
+Listing only TCP (Transmission Control Protocol) port connections using netstat -at.
+
+# netstat -au
+
+4. Listing all LISTENING Connections
+Listing all active listening ports connections with netstat -l.
+
+# netstat -l
+
+5. Listing all TCP Listening Ports
+Listing all active listening TCP ports by using option netstat -lt.
+
+# netstat -lt
+
+6. Listing all UDP Listening Ports
+Listing all active listening UDP ports by using option netstat -lu.
+
+# netstat -lu
+
+7. Listing all UNIX Listening Ports
+Listing all active UNIX listening ports using netstat -lx.
+
+# netstat -lx
+
+8. Showing Statistics by Protocol
+Displays statistics by protocol. By default, statistics are shown for the TCP, UDP, ICMP, and IP protocols. The -s parameter can be used to specify a set of protocols.
+
+# netstat -s
+
+
+9. Showing Statistics by TCP Protocol
+Showing statistics of only TCP protocol by using option netstat -st.
+
+# netstat -st
+
+10. Showing Statistics by UDP Protocol
+# netstat -su
+
+
+11. Displaying Service name with PID
+Displaying service name with their PID number, using option netstat -tp will display “PID/Program Name”.
+
+# netstat -tp
+
+12. Displaying Promiscuous Mode
+Displaying Promiscuous mode with -ac switch, netstat print the selected information or refresh screen every five second. Default screen refresh in every second.
+
+# netstat -ac 5 | grep tcp
+
+
+13. Displaying Kernel IP routing
+Display Kernel IP routing table with netstat and route command.
+
+# netstat -r
+
+
+14. Showing Network Interface Transactions
+Showing network interface packet transactions including both transferring and receiving packets with MTU size.
+
+# netstat -i
+
+
+15. Showing Kernel Interface Table
+Showing Kernel interface table, similar to ifconfig command.
+
+# netstat -ie
+
+16. Displaying IPv4 and IPv6 Information
+Displays multicast group membership information for both IPv4 and IPv6.
+
+# netstat -g
+
+17. Print Netstat Information Continuously
+To get netstat information every few second, then use the following command, it will print netstat information continuously, say every few seconds.
+
+# netstat -c
+
+18. Finding non supportive Address
+Finding un-configured address families with some useful information.
+
+# netstat --verbose
+
+19. Finding Listening Programs
+Find out how many listening programs running on a port.
+
+# netstat -ap | grep http
+
+20. Displaying RAW Network Statistics
+# netstat --statistics --raw
+
+
